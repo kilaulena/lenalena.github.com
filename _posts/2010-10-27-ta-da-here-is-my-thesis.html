@@ -1,0 +1,67 @@
+---
+layout: default
+title: Ta-da! Here is my thesis.
+---
+
+<p>I'm happy to announce the immediate availability of my thesis! It was handed in in July 2010 as my diplom thesis in the academic program of Media Informatics at <a href="http://www.beuth-hochschule.de/">Beuth Hochschule für Technik Berlin</a> (University of Applied Sciences). A <a href="http://en.wikipedia.org/wiki/Diplom">German Diplom</a> is comparable to a combined bachelor's and master's degree. Originally it has been written in German, so I'm very happy it's also available for English speaking readers now: thanks a lot to the awesome <a title="Copywriting, Translation" href="http://www.sanderstruck.com/">Sander Van de Moortel</a> for translating it into English, and to <a href="http://blog.couchone.com/post/1415269773/im-happy-to-announce-the-immediate-availability">CouchOne</a> for sponsoring the translation. Read also <a href="http://lenaherrmann.net/2010/08/05/thesis-is-done-thanks-for-your-support">my thank you notes</a> for more gratefulness.</p>
+  
+<p>I hope the thesis is an interesting read and useful for your research or development!</p>
+
+
+
+<h3 style="color:#949490;margin-left:6px;">Contents</h3>
+
+<p>The title is <b>"Implementation of a distributed application using the
+document-oriented database CouchDB — An outliner as a replicable distributed system"</b> (originally <b>"Umsetzung einer verteilten Anwendung mit der dokumentenorientierten Datenbank — CouchDB Ein Gliederungseditor als replizierbares Verteiltes System"</b>).</p> 
+
+<p>What is it about? <a href="http://upstre.am/blog/2010/10/diplom-thesis-a-distributed-application-with-couchdb-and-javascript/">I wrote a couple of words about that</a> for the Upstream blog. Here is also the abstract — all the contents in ten sentences:</p>
+
+<p><i>Modern web browsers and mobile devices are capable of running complex applications that allow collaboration and data exchange between their users. Laptops and mobile phones, however, cannot be expected to keep their internet connections alive at all times. This problem can be sidestepped using data replication, which means that data are regularly synchronised and kept consistent. This thesis describes the drafting and prototypical development of a JavaScript application that uses the document-oriented database CouchDB to form distributed outliner software. Outliners can be used to record thoughts or concepts in a hierarchically structured manner. Apart from categorising the system to be developed and analysing possible approaches, the thesis will also examine the technologies used. Special focus lies on CouchDB with its built-in master-master replication and its ability to implement complex applications without the use of middleware. The final application runs locally in the browser and is therefore also usable when off-line. Conflicts are resolved when the system is synchronised, sometimes steered by user input. The thesis also evaluates the applicability of CouchDB in distributed applications with particular regard to the use case at hand.</i></p>
+
+
+<h3 style="color:#949490;margin-left:6px;">Download</h3>
+
+<p>  
+  <ul>
+    <li>Read <a href="http://www.scribd.com/doc/40221592/Implementation-of-a-distributed-application-using-the-document-oriented-database-CouchDB">the English version</a> and <a href="http://www.scribd.com/doc/40221773/Umsetzung-einer-verteilten-Anwendung-mit-der-dokumentenorientierten-Datenbank-CouchDB">the German version</a> online,
+    </li>
+    <li>check out the <a href="https://github.com/lenalena/thesis_en">English LaTeX sources</a> or the <a href="https://github.com/lenalena/thesis_de">German LaTeX sources</a> on github, or
+    </li>  
+    <li>download the pdf <a href="https://github.com/lenalena/thesis_en/raw/master/Lena_Herrmann_CouchDB_thesis.pdf">in English</a> or <a href="https://github.com/lenalena/thesis_de/raw/master/Lena_Herrmann_CouchDB_Diplomarbeit.pdf">in German</a>.</li>
+  </ul>
+</p>
+
+
+<h3 style="color:#949490;margin-left:6px;">BibTeX</h3>
+
+<p>
+  In case you want to quote me in your paper/thesis/homework, here's the BibTeX entry:
+  
+  <typo:code lang="bibtex">
+@mastersthesis{herrmann:couchdb,
+  author = {Lena Herrmann},
+  title = {Realisation of a Distributed Application Using the Document-Oriented Database CouchDB - An Outliner as a Replicable Distributed System},
+  school = {University of Applied Sciences Berlin},
+  year = {2010},
+  month = {July}
+}
+
+@mastersthesis{herrmann:couchdb,
+  author = {Lena Herrmann},
+  title = {Umsetzung einer verteilten Anwendung mit der dokumentenorientierten Datenbank CouchDB - Ein Gliederungseditor als replizierbares Verteiltes System},
+  school = {Beuth Hochschule für Technik Berlin},
+  year = {2010},
+  month = {Juli}
+}
+</typo:code></p>
+
+
+
+
+<h3 style="color:#949490;margin-left:6px;">The Application</h3>
+
+<p>The hands-on part is an outliner that allows people to collaborate on documents even when they don't have continuous internet access. If you want to read/clone/try out/improve/take apart/whatever the source code, <a href="https://github.com/lenalena/doingnotes">it's here on github</a>. <a href="https://github.com/lenalena/doingnotes/blob/master/README.md">The github README</a> contains installation and usage instructions, for more details read chapter 9, "Application", in the thesis.</p>
+  
+<p>You can also <a href="http://lena.couchone.com:5984/doingnotes/_design/doingnotes/index.html">try out the outliner online</a>. Though, in order to enjoy the replication and conflict resolution features, you have to (also) install it locally. But it's a couchapp - when you have CouchDB running you're almost there already.</p>
+
+<p>I hope you all like it!</p>

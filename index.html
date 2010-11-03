@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Lena Herrmann</title>
-</head>
- 
-<body>
-<h1>Hi there</h1>
-</body>
-</html>
+---
+layout: default
+title: validates_presence_of :purpose
+---
+
+{% for post in site.posts limit:10 %}
+<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+{{ post.content }}
+<em>Posted on {{ post.date | date_to_long_string }}.</em>
+{% endfor %}
