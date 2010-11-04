@@ -22,7 +22,7 @@ type: "#{category.gsub(/\b\w/){$&.upcase}}"
     HTML
   
     
-    posts.each do |post|
+    posts.reverse.each do |post|
       post_data = post.to_liquid
       html << <<-HTML
         <div class="atomentry">
@@ -70,7 +70,7 @@ task :cloud_basic do
   site.categories.sort.each do |category, posts|
     s = posts.count
     font_size = 10 + (s*1.8);
-    html << "<a href=\"#{@@site_url}/tag/#{category}/\" title=\"Articles tagged #{category}\" style=\"font-size: #{font_size}px; line-height:#{font_size}px\" rel=\"tag\">#{category}</a> "
+    html << "<a href=\"#{@@site_url}/tag/#{category}/\" title=\"Articles tagged #{category}\" style=\"font-size: #{font_size}px; line-height:#{font_size + (font_size*0.2)}px\" rel=\"tag\">#{category}</a> "
   end
 
   File.open('_includes/tags.html', 'w+') do |file|
