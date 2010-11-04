@@ -208,8 +208,12 @@ h1 {
     color: #654;
 }
 
-#sidebar #banner {
+#sidebar #banners {
 	margin-top: 10px;
+}
+
+#sidebar #banners .banner {
+	margin: 0 0 10px 0;
 }
 
 /* footer */

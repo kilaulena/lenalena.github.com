@@ -23,12 +23,17 @@ layout: default
       <a href="/tag/{{ category }}">{{ category }}</a>
     {% endfor %}
   </div>
-<!-- {% if page.comments_disabled != true %}
-  <div id="comments">
-    <a href="{{ page.url }}#disqus_thread">View Comments</a>
-    <div id="disqus_thread"></div>
-    <script type="text/javascript" src="http://disqus.com/forums/paper-planes/embed.js"></script>
+  
+  <div class="comments">
+<script>
+var idcomments_acct = 'dbf52aa91e471a96b0cf2b3b8d1dbfc4';
+var idcomments_post_id;
+var idcomments_post_url;
+</script>
+<span id="IDCommentsPostTitle" style="display:none"></span>
+<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
   </div>
   <br/>
-{% endif %} -->
+
+
 </div>
