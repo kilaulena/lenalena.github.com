@@ -69,7 +69,7 @@ task :cloud_basic do
 
   site.categories.sort.each do |category, posts|
     s = posts.count
-    font_size = 12 + (s*1.2);
+    font_size = 9 + (s*1.7);
     html << "<a href=\"#{@@site_url}/tag/#{category}/\" title=\"Articles tagged #{category}\" style=\"font-size: #{font_size}px; line-height:#{font_size}px\" rel=\"tag\">#{category}</a> "
   end
 

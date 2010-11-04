@@ -1,0 +1,56 @@
+---
+layout: post
+title: Things I learned recently
+categories: [debugging, pairing, rails, ruby, textmate, testing]
+excerpt: <p>Doing client work for <a href="http://upstream-agile.com">Upstream</a>, I recently had the pleasure of pair programming with fabulous <a href="http://freelancing-gods.com">Pat Allan</a> for a month. Here are a few of the things I learned.</p><ol><li>Pair Programming is a good thing (not that I haven't known that before). Here is <a href="http://www.pathf.com/blogs/2009/09/pair-programming-york-times/">yet another good article about pairing</a> if you aren't convinced yet. Next to improved concentration, keeping each other from getting stuck in stuff, I like the sharing of best practices, Textmate short cuts, syntax tricks etc.</li><li>Instead of writing "puts" in, after and before blocks that don't act as expected, use ruby-debug. It's really easy, and gives you so much more information about your situation.Just do:</li></ol><p><a href="2009-10-24-things-i-learned-recently">Continue reading...</a></p>
+
+---
+
+<p>Doing client work for <a href="http://upstream-agile.com">Upstream</a>, I recently had the pleasure of pair programming with fabulous <a href="http://freelancing-gods.com">Pat Allan</a> for a month. Here are a few of the things I learned.</p>
+
+<ol>
+  <li>
+    Pair Programming is a good thing (not that I haven't known that before). Here is <a href="http://www.pathf.com/blogs/2009/09/pair-programming-york-times/">yet another good article about pairing</a> if you aren't convinced yet. Next to improved concentration, keeping each other from getting stuck in stuff, I like the sharing of best practices, Textmate short cuts, syntax tricks etc.
+  </li>
+  
+  <li>
+    Instead of writing "puts" in, after and before blocks that don't act as expected, use ruby-debug. It's really easy, and gives you so much more information about your situation.
+    Just do:
+{% highlight bash %}
+sudo gem install ruby-debug
+{% endhighlight %}
+And in your code, at the place you want to examine:
+{% highlight ruby %}
+require 'ruby-debug'
+debugger
+{% endhighlight %}
+    Then restart script/server with the --debug option. It stops when the line where you put 'debugger' is reached. You can directly call variables to explore their values. The basic commands are:
+    <ul class="second-level">
+      <li>n - next</li>
+      <li>s - step into method</li>
+      <li>c - continue to breakpoint</li>
+    </ul>
+  </li>
+  
+
+
+  <li>
+    Read the source code of the gems you're using. If you are not sure how to do something with the gem, the actual code is often more informative than documentation. Lachie Cox <a href="http://smartbomb.com.au/2008/02/i-love-me-some-source">describes in his blog</a> how to set up a Textmate shortcut with which you can access all your gems without any typing. 
+  </li>
+
+  <li>
+    <a href="http://www.rubular.com">Rubular</a> is a nice app to test regular expressions in your browser.
+  </li>
+
+  <li> 
+    I have never used RCov before. Of course it doesn't mean too much, but having a test coverage of 97,7% feels good, I can tell you. A Code to Test Ratio of 1:2.7 is not bad either.
+    <br/>
+    The RCov gem has moved to <a href="http://github.com/relevance/rcov">Relevance</a>, <a href="http://www.claytonlz.com/index.php/2009/04/how-to-setup-rspec-cucumber-webrat-rcov-and-autotest-on-leopard">read here</a> how to set it up for an RSpec/Cucumber environment. 
+  </li>
+
+  <li>
+    And finally, I got convinced that it's good to have a blog ...
+  </li>
+</ol>
+
+<p>Here we are!</p>

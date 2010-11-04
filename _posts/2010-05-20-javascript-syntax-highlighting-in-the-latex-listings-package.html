@@ -10,9 +10,9 @@ excerpt: <p>I'm currently writing my thesis, using <a href="http://www.latex-pro
   
 <p>Luckily <a href="http://twitter.com/awendt">@awendt</a> pointed me to these links: <a href="http://vis4.net/blog/2009/08/javascript-quelltexte-in-latex/">Javascript Quelltexte in LaTeX</a> and <a href="http://mail.asta.uni-potsdam.de/pipermail/uplug/2006-June/003595.html">a thread on a mailinglist</a>. I changed those examples only a bit, I'm posting my result here mainly in the hope it will produce a Google hit for "javascript latex source code" :-)</p>
 
-<p>Put this at the beginning of your document. It will define support for the Javascript language. I included the keywords that show up in my code most frequently.</p>
-
-<p>{% highlight tex %}
+<p>Put this at the beginning of your document. It will define support for the Javascript language. I included the keywords that show up in my code most frequently.
+  
+{% highlight tex %}
 \usepackage{listings}
 \usepackage{color}
 \definecolor{lightgray}{rgb}{.9,.9,.9}
@@ -33,12 +33,11 @@ excerpt: <p>I'm currently writing my thesis, using <a href="http://www.latex-pro
   morestring=[b]',
   morestring=[b]"
 }
-{% endhighlight %}
-</p>
+{% endhighlight %}</p>
 
-<p>Here you define the style for the newly defined language. This also belongs in the preamble of your LaTeX file.</p>
+<p>Here you define the style for the newly defined language. This also belongs in the preamble of your LaTeX file.
   
-<p>{% highlight tex %}
+{% highlight tex %}
 \lstset{
    language=JavaScript,
    backgroundcolor=\color{lightgray},
@@ -59,9 +58,8 @@ excerpt: <p>I'm currently writing my thesis, using <a href="http://www.latex-pro
 
 <p>The colours are just an example, read how to define more colours <a href="http://en.wikibooks.org/wiki/LaTeX/Colors#Defining_new_colors">in the wikibook</a>.</p>
 
-<p>Now you can insert code like this. The example is nonsense, I tried to include as many keywords as possible. The <i>medskip</i> command before the listing inserts a linebreak, a not very nice way to have some distance between the text and the listing.</p>
+<p>Now you can insert code like this. The example is nonsense, I tried to include as many keywords as possible. The <i>medskip</i> command before the listing inserts a linebreak, a not very nice way to have some distance between the text and the listing.
 
-<p>
 {% highlight javascript %}
 \medskip
 \begin{lstlisting}[caption=My Javascript Example]

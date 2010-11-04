@@ -1,0 +1,74 @@
+---
+layout: post
+title: Snippets for cucumber
+categories: [cucumber, rails, testing, xpath]
+excerpt: <p>In every project I use cucumber (that means, always) there are a few things that I keep reinventing, or I spend a lot of time searching for them in other projects. Here are some of them. They aren't all written by me, but maybe my coworkers like to use this as a reference, too?</p><p>When you upgrade to the current cucumber (0.4.2) from an older version some steps will fail, because cucumber doesn't examine the whole html anymore. You can still check the raw html with these steps:</p><p><a href="/2009-10-25-snippets-for-cucumber">Continue reading...</a></p>
+
+---
+
+<p>In every project I use cucumber (that means, always) there are a few things that I keep reinventing, or I spend a lot of time searching for them in other projects. Here are some of them. They aren't all written by me, but maybe my coworkers like to use this as a reference, too?</p>
+
+<p>When you upgrade to the current cucumber (0.4.2) from an older version some steps will fail, because cucumber doesn't examine the whole html anymore. You can still check the raw html with these steps:
+
+{% highlight ruby %}
+Then /^I should see "([^\"]*)" in the source$/ do |text|
+  response.body.should match(/#{text}/)
+end
+
+Then /^I should not see "([^\"]*)" in the source$/ do |text|
+  response.body.should_not match(/#{text}/)
+end
+{% endhighlight %}</p>
+
+<p>Want to test sorting in one step?
+
+{% highlight ruby %}
+Then /^I should see "([^\"]*)" before "([^\"]*)"$/ do |first, second|
+  response.body.should match(/#{first}.*#{second}/im)
+end
+{% endhighlight %}</p>
+
+<p>Sometimes you want to click a link in a specific div:
+
+{% highlight ruby %}
+When /^I buy "([^\"]*)"$/ do |title|
+  product = Product.find_by_title(title)
+  field_by_xpath("//div[@id='buy_product_dialog_product_#{product.id}']//input").click
+end
+{% endhighlight %}</p>
+
+<p>Or you want to test what happens when you delete a specific object:
+
+{% highlight ruby %}
+When /^I press "Delete" for comment "([^\"]*)"$/ do |comment|
+  tag = Comment.find_by_title(comment)
+  field_by_xpath("//form[@id='delete_comment_#{comment.id}']//input[@type='submit']").click
+end
+{% endhighlight %}</p>
+
+<p>With this you can check for a string that's within a tag with a specific id:
+
+{% highlight ruby %}
+Then /^I should see "([^\"]+)" in "([^\"]+)"$/ do |content, css_id|
+  response.body.should have_tag("##{css_id}", content)
+end
+{% endhighlight %}</p>
+
+<p>Use this regex to check for something within a given tag:
+
+{% highlight ruby %}
+Then /^I should see "([^\"]*)" within a (\w+) tag$/ do |text, tag|
+  response.body.should match(/<#{tag}[^>]*>[^<]*#{text}[^<]*<\/#{tag}>/)
+end
+{% endhighlight %}</p>
+
+<p>Cucumber 0.4.2 auto-generates webrat_steps.rb including a step to save the current page and open it in the browser. Just in case not everyone knows this step by now:
+
+{% highlight ruby %}
+Then /^show me the page$/ do
+  save_and_open_page
+end
+{% endhighlight %}</p>
+
+
+

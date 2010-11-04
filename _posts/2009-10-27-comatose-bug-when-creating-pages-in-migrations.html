@@ -1,0 +1,31 @@
+---
+layout: post
+title: Comatose bug when creating pages in migrations
+categories: [bug, comatose, rails]
+excerpt: <p><a href="http://comatose.rubyforge.org/">Comatose</a> is a micro CMS, easy to embed in your Rails app, ideal when the customer wants to update her FAQ once in a while. I work on a few projects where comatose is integrated, and it's been the second time now that one specific problem has given headaches to me and my colleagues. Time to document the solution.</p><p>Comatose has a hierarchical structure. All the pages are children of the comatose root page, which is usually not in use. This root page is created by the migration AddComatoseSupport. When we add comatose to a project, we usually create another migration, where some child pages are created and populated (because the customer usually already knows what pages she wants). This can look like this:</p><p><a href="/2009-10-27-comatose-bug-when-creating-pages-in-migrations">Continue reading...</a></p>
+
+---
+
+<p><a href="http://comatose.rubyforge.org/">Comatose</a> is a micro CMS, easy to embed in your Rails app, ideal when the customer wants to update her FAQ once in a while. I work on a few projects where comatose is integrated, and it's been the second time now that one specific problem has given headaches to me and my colleagues. Time to document the solution.</p>
+
+<p>Comatose has a hierarchical structure. All the pages are children of the comatose root page, which is usually not in use. This root page is created by the migration AddComatoseSupport. When we add comatose to a project, we usually create another migration, where some child pages are created and populated (because the customer usually already knows what pages she wants). This can look like this:</p>
+
+{% highlight ruby %}
+root = ComatosePage.find_by_title('Home Page')
+faq = ComatosePage.create(:title => 'FAQ', :author => 'System', :body => "Text goes here.", :parent_id => root.id
+{% endhighlight %}
+
+<p>All will be fine if you run the AddComatoseSupport migration first, and then the other one. If you run both of them in one go, all will look correctly first, too. But then - try to access the application and you get "a nil object when you didn't expect it!" A look in the database will tell you that your root page and your FAQ page are both there - but the slugs (needed to access the pages) are nil. Why is that? </p>
+
+<p>The answer: The class ComatosePage gets overwritten in the AddComatoseSupport migration, to make sure the comatose root page can be created (they are invalid without parent_id). But if you have another migration following this one, where you create a couple of comatose pages, they still are instances of that overwritten class. Especially the before/after filters from the original ComatosePage aren't evaluated. In those filters the slug fields are meant to be populated, so they are nil.</p>
+
+<p>First soluton: Define a class ComatoseRootPage instead, so you won't override anything.</p>
+
+<p>Second and much easier solution: Remove the class redefinition altogether, for the root page just do 
+{% highlight ruby %}
+ComatosePage.new(...).save(false)
+{% endhighlight %}
+
+<p><a href="http://github.com/lenalena/comatose/commit/4005cf44f11165393b18b3fed2837a9afb57814a">See on github</a>.</p>
+
+<p>Unfortunately the comatose project is not updated very often, so this bug is still unsolved in the generated migrations.</p>
