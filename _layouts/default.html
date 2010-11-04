@@ -9,27 +9,53 @@
 
 <body>
   
-<div id="header">
-  {% include header.html %}
-</div>
+<div class="outer-container">
+	<div class="inner-container">
+    
+    {% include header.html %}
+    
+    <div id="main">
+      <div id="content">
+        {{ content }}
+      </div>
+  
+      <div id="sidebar">
+    
+        <h3>Hi!</h3>
+        <div class='static-body'>
+          <p>I'm Lena Herrmann and this is my blog. I'm a Ruby developer living in Berlin, Germany. Currently I'm writing my diploma thesis in computer sciences. You should <a href="http://twitter.com/kilaulena">follow me on twitter</a>. Or <a href="/about.html">read more about me here</a>.
+          </p>
+        </div>
 
-<div id="main">
-  <div id="sidebar">
-    <div id="sidebar-box">
-      <h3>Hi!</h3>
-      <div class='body'>
-        <p>I'm Lena Herrmann and this is my blog. I'm a Ruby developer living in Berlin, Germany. Currently I'm writing my diploma thesis in computer sciences. You should <a href="http://twitter.com/kilaulena">follow me on twitter</a>. Or <a href="/about.html">read more about me here</a>.
+        <h3>Tags</h3>
+        <p style="overflow:hidden">
+          {% include tags.html %}
+        </p>
+
+        <p id="banner">
+          <a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number' title='JavaScript Number toExponential'>
+            <img src='http://static.jsconf.us/promotejsv.gif' height='280' width='160' alt='JavaScript Number toExponential'/>
+          </a>
+          <a href="http://www.devchix.com/">
+            <img src="/images/devchix_logo.gif">
+          </a>
         </p>
       </div>
+      <br style="clear:both;" />
     </div>
-    <div id="tagcloud">
-      {% include tags.html %}
-    </div>
-  </div>
-
-  <div id="content">
-    {{ content }}
-  </div>
+  
+  	<div id="footer">
+    	<div class="left">
+    	  <a href="http://lenaherrmann.net">validates_presence_of :purpose</a><br>
+    	  <a href="http://lenaherrmann.net/imprint">Imprint/Impressum</a>
+    	</div>
+			<div class="right">
+        Design based on <a href="http://templates.arcsin.se/">Dirtylicious</a> <br>
+        Blog made with <a href="http://github.com/mojombo/jekyll">Jekyll</a>
+			</div>
+			<div class="clearer"></div>
+  	
+	</div>
 </div>
 
 </body>

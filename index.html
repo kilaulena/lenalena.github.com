@@ -4,13 +4,29 @@ title: Lena Herrmann
 ---
 
 {% for post in site.posts limit:10 %}
-<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-{{ post.excerpt }}
-<em>Posted on {{ post.date | date_to_long_string }}.</em>
-<p>
-  Tags: 
-  {% for category in post.categories %}
-    <a href="/tag/{{ category }}">{{ category }}</a>
-  {% endfor %}
-  </p>
+<div class="atomentry">
+  <div class="titlebar">
+    <h2 class="title">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </h2>
+  </div>
+
+  <div class="author">
+    Posted by <cite>Lena Herrmann</cite> <abbr>on {{ post.date | date_to_string }}</span></abbr>
+  </div>
+  
+  <div class="content">
+    {{ post.excerpt }}
+  </div>
+  
+  <div class="tags">
+    Tags:
+    {% for category in post.categories %}
+      <a href="/tag/{{ category }}">{{ category }}</a>
+    {% endfor %}
+  </div>
+</div>
 {% endfor %}
+
+
+

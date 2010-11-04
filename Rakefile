@@ -18,20 +18,30 @@ layout: default
 title: Entries tagged "#{category}"
 type: "#{category.gsub(/\b\w/){$&.upcase}}"
 ---
-    <h2 id="#{category}">Entries tagged "#{category}"</h2>
+    <h2 class="posts-by-tag">Entries tagged "#{category}"</h2>
     HTML
-
-    html << '<ul class="posting_list">'
+  
+    
     posts.each do |post|
       post_data = post.to_liquid
       html << <<-HTML
-        <li>
-          <a href="#{@@site_url}/#{post.url}" rel="tag" title="#{post_data['title']}">#{post_data['title']}</a>
-          <em>Posted on #{post_data['date'].strftime("%d %B %Y")}.</em>
-        </li>
+        <div class="atomentry">
+          <div class="titlebar">
+            <h2 class="title">
+              <a href="#{@@site_url}/#{post.url}" rel="tag" title="#{post_data['title']}">#{post_data['title']}</a>
+            </h2>
+          </div>
+
+          <div class="author">
+            Posted by <cite>Lena Herrmann</cite> <abbr>on #{post_data['date'].strftime("%d %B %Y")}</span></abbr>
+          </div>
+  
+          <div class="content">
+            #{post_data['excerpt']}
+          </div>
+        </div>
       HTML
     end
-    html << '</ul>'
 
     FileUtils.mkdir_p "tag/#{category}"
     File.open("tag/#{category}/index.html", 'w+') do |file|
