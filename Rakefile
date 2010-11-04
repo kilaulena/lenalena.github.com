@@ -18,7 +18,7 @@ layout: default
 title: Entries tagged "#{category}"
 type: "#{category.gsub(/\b\w/){$&.upcase}}"
 ---
-    <h1 id="#{category}">Entries tagged "#{category}"</h1>
+    <h2 id="#{category}">Entries tagged "#{category}"</h2>
     HTML
 
     html << '<ul class="posting_list">'

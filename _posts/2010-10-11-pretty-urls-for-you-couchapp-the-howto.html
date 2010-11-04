@@ -1,14 +1,14 @@
 ---
-layout: default
+layout: post
 title: Pretty URLs for you couchapp, the howto
 categories: [couchapp, couchdb]
-excerpt: <p>If you have a couchapp and want to have nice URLS, go <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read this blogpost</a>. If you still don't get it, here is how to do it. It doesn't work with my outliner app, because it is so entangled with old couchapp and jquery.couch.js versions and I'm not up to upgrade hell right now. But I'll write it down for my next project and for you, yay.</p><p>Let's say you have an app running at http://account.couchone.com/mydb/_design/doingnotes/index.html and want to add the additional URL http://account.couchone.com/index.html. First you have to set up a virtual host. (Want to know why? Go back <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read the blogpost</a>). If you are using a hosted CouchDB instance and don't have access to the local.ini file, you can also do this remotely:</p><p><a href="/2010/10/27/ta-da-here-is-my-thesis.html">Continue reading...</a></p>
+excerpt: <p>If you have a couchapp and want to have nice URLS, go <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read this blogpost</a>. If you still don't get it, here is how to do it. It doesn't work with my outliner app, because it is so entangled with old couchapp and jquery.couch.js versions and I'm not up to upgrade hell right now. But I'll write it down for my next project and for you, yay.</p><p>Let's say you have an app running at http://account.couchone.com/mydb/_design/doingnotes/index.html and want to add the additional URL http://account.couchone.com/index.html. First you have to set up a virtual host. (Want to know why? Go back <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read the blogpost</a>). If you are using a hosted CouchDB instance and don't have access to the local.ini file, you can also do this remotely:</p><p><a href="/2010/10/27/ta-da-here-is-my-thesis">Continue reading...</a></p>
 
 ---
 
 <p>If you have a couchapp and want to have nice URLS, go <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read this blogpost</a>. If you still don't get it, here is how to do it. It doesn't work with my outliner app, because it is so entangled with old couchapp and jquery.couch.js versions and I'm not up to upgrade hell right now. But I'll write it down for my next project and for you, yay.</p>
 
-<p>Let's say you have an app running at http://account.couchone.com/mydb/_design/doingnotes/index.html and want to add the additional URL http://account.couchone.com/index.html. First you have to set up a virtual host. (Want to know why? Go back <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read the blogpost</a>). If you are using a hosted CouchDB instance and don't have access to the local.ini file, you can also do this remotely:
+<p>Let's say you have an app running at http://account.couchone.com/mydb/_design/doingnotes/index.html and want to add the additional URL http://account.couchone.com/index.html. First you have to set up a virtual host. (Want to know why? Go back <a href="http://blog.couchone.com/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">read the blogpost</a>). If you are using a hosted CouchDB instance and don't have access to the local.ini file, you can also do this remotely:</p>
 
 <p>
 {% highlight bash %}
@@ -18,7 +18,7 @@ curl -X PUT http://username:password@account.couchone.com/_config/vhosts/account
 
 <p>Check at the bottom of http://account.couchone.com/_utils/config.html if there is a key value pair "account.couchone.com" => "/mydb/_design/doingnotes/_rewrite".</p>
 
-<p>Now it won't work yet, because you still have to add the rewrite(s) to your design document. Do this by adding a file "rewrites.json" in your project folder. I has to contain an array of json objects with a "from" and a "to" attribute each. They work down in the path starting with the design document (the "doingnotes" in the URL). You can use wildcards. "from" specifies where it should map from, "to" which file it should map to. This is how rewrites.json looks for my application:
+<p>Now it won't work yet, because you still have to add the rewrite(s) to your design document. Do this by adding a file "rewrites.json" in your project folder. I has to contain an array of json objects with a "from" and a "to" attribute each. They work down in the path starting with the design document (the "doingnotes" in the URL). You can use wildcards. "from" specifies where it should map from, "to" which file it should map to. This is how rewrites.json looks for my application:</p>
 
 <p>
 {% highlight javascript %}

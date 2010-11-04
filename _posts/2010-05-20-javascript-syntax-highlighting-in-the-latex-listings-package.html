@@ -1,0 +1,91 @@
+---
+layout: post
+title: JavaScript syntax highlighting in the LaTeX listings package
+categories: [javascript, latex]
+excerpt: <p>I'm currently writing my thesis, using <a href="http://www.latex-project.org/">LaTeX</a>. As the programming part of my thesis was mostly done in Javascript, I have to include some bits of Javascript source code in the LaTeX document. For this I'm using the <a href="http://en.wikibooks.org/wiki/LaTeX/Packages/Listings">listings package</a>. With this package you can "include the source code of any programming language within your document". Unfortunately Javascript is not in the list of supported programming languages. (In return, the list contains languages like Oberon-2, Promela or RSL, which are probably being used way more often than Javascript ... er.)</p><p>Luckily <a href="http://twitter.com/awendt">@awendt</a> pointed me to these links — <a href="http://vis4.net/blog/2009/08/javascript-quelltexte-in-latex/">Javascript Quelltexte in LaTeX</a> and <a href="http://mail.asta.uni-potsdam.de/pipermail/uplug/2006-June/003595.html">a thread on a mailinglist</a>. I changed those examples only a bit, I'm posting my result here mainly in the hope it will produce a Google hit for "javascript latex source code" :-)</p><p><a href="/2010-05-20-javascript-syntax-highlighting-in-the-latex-listings-package">Continue reading...</a></p>
+
+---
+
+<p>I'm currently writing my thesis, using <a href="http://www.latex-project.org/">LaTeX</a>. As the programming part of my thesis was mostly done in Javascript, I have to include some bits of Javascript source code in the LaTeX document. For this I'm using the <a href="http://en.wikibooks.org/wiki/LaTeX/Packages/Listings">listings package</a>. With this package you can "include the source code of any programming language within your document". Unfortunately Javascript is not in the list of supported programming languages. (In return, the list contains languages like Oberon-2, Promela or RSL, which are probably being used way more often than Javascript ... er.)</p>
+  
+<p>Luckily <a href="http://twitter.com/awendt">@awendt</a> pointed me to these links: <a href="http://vis4.net/blog/2009/08/javascript-quelltexte-in-latex/">Javascript Quelltexte in LaTeX</a> and <a href="http://mail.asta.uni-potsdam.de/pipermail/uplug/2006-June/003595.html">a thread on a mailinglist</a>. I changed those examples only a bit, I'm posting my result here mainly in the hope it will produce a Google hit for "javascript latex source code" :-)</p>
+
+<p>Put this at the beginning of your document. It will define support for the Javascript language. I included the keywords that show up in my code most frequently.</p>
+
+<p>{% highlight tex %}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+{% endhighlight %}
+</p>
+
+<p>Here you define the style for the newly defined language. This also belongs in the preamble of your LaTeX file.</p>
+  
+<p>{% highlight tex %}
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+{% endhighlight %}
+</p>
+
+<p>The colours are just an example, read how to define more colours <a href="http://en.wikibooks.org/wiki/LaTeX/Colors#Defining_new_colors">in the wikibook</a>.</p>
+
+<p>Now you can insert code like this. The example is nonsense, I tried to include as many keywords as possible. The <i>medskip</i> command before the listing inserts a linebreak, a not very nice way to have some distance between the text and the listing.</p>
+
+<p>
+{% highlight javascript %}
+\medskip
+\begin{lstlisting}[caption=My Javascript Example]
+Name.prototype = {
+  methodName: function(params){
+    var doubleQuoteString = "some text";
+    var singleQuoteString = 'some more text';
+    // this is a comment
+    if(this.confirmed != null && typeof(this.confirmed) == Boolean && this.confirmed == true){
+      document.createElement('h3');
+      $('#system').append("This looks great");
+      return false;
+    } else {
+      throw new Error;
+    }
+  }
+}
+\end{lstlisting}
+{% endhighlight %}
+</p>
+
+
+<p>The result looks like this:</p>
+
+<p><img width="532"  src="/files/latex.png" alt="Javascript source code in LaTeX"/></p>
+
+<p>Update: <a href="http://twitter.com/perkee">@perkee</a> pointed out you can also use the <a href="http://code.google.com/p/minted/">minted package</a> for syntax highlighting.</p> 
