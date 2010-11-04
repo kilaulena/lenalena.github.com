@@ -42,7 +42,9 @@ title: Lena Herrmann
       if(idcomments_post_id.indexOf('#')>0)
 	      idcomments_post_id = idcomments_post_id.substr(0, idcomments_post_id.indexOf('#'));
 
-console.log(idcomments_post_id, idcomments_post_url)
+alert('test');
+alert(idcomments_post_id);
+alert(idcomments_post_url);
 
 if(document.getElementById("IDCommentsPostTitle"+idcomments_post_id))
 	idcomments_post_title = document.getElementById("IDCommentsPostTitle"+idcomments_post_id).innerHTML;
