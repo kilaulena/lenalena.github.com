@@ -1,0 +1,36 @@
+---
+layout: post
+title: Testing key events with Culerity
+categories: [celerity, cucumber, culerity, javascript, testing]
+excerpt: <p>The application I'm writing depends heavily on key events. When you press enter in a specific text field, some other field opens, when you press tab, the text fields moves, etc. Of course I need to cover this in my cucumber integration tests. The <a href="http://celerity.rubyforge.org/yard/Celerity/Element.html#fire_event-instance_method">Celerity API</a> is a bit thin for this purpose — you can fire a, let's say, keydown event - but it doesn't pass through the specific key code.</p><p>Actually it's easy when you know how. You can execute any javascript directly on the Culerity RemoteBrowserProxy object. In order to fire a specific key event, you have to create a KeyboardEvent, initialize it with whatever you want, and dispatch it on the element.</p><p><a href="/2009-11-22-testing-key-events-with-culerity">Continue reading...</a></p>
+
+---
+
+<p>The application I'm writing depends heavily on key events. When you press enter in a specific text field, some other field opens, when you press tab, the text fields moves, etc. Of course I need to cover this in my cucumber integration tests. The <a href="http://celerity.rubyforge.org/yard/Celerity/Element.html#fire_event-instance_method">Celerity API</a> is a bit thin for this purpose: You can fire a, let's say, keydown event - but it doesn't pass through the specific key code.</p>
+
+<p>Actually it's easy when you know how. You can execute any javascript directly on the Culerity RemoteBrowserProxy object. In order to fire a specific key event, you have to create a KeyboardEvent, initialize it with whatever you want, and dispatch it on the element.</p>
+
+<p>Read up the details, especially the meaning of initKeyEvent's parameters <a href="http://help.dottoro.com/ljbwbehw.php">in this Javascript API</a>.</p>
+
+<p>I ended up with this cucumber step:</p>
+
+{% highlight ruby %}
+When /^I hit "([^\"]*)" in a text_field with id "([^\"]*)"$/ do |key, id|
+  key_code = case key
+    when 'enter'
+      13
+    when 'up'
+      38
+    when 'down'
+      40
+    else
+      0
+    end
+  $browser.execute_script('event = document.createEvent("KeyboardEvent");')
+  $browser.execute_script('event.initKeyEvent("keydown", true, false, document.window, false, false, false, false, ' + key_code.to_s + ', 0)')
+  $browser.execute_script("document.getElementById('#{id}').dispatchEvent(event)")
+  When 'I wait for the AJAX call to finish'
+end
+{% endhighlight %}
+
+<p>Note that this is meant to work for Firefox only. For IE you can do a similar thing with createEventObject, <a href="http://help.dottoro.com/ljhlvomw.php">see here how</a>.</p>

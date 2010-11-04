@@ -1,0 +1,89 @@
+---
+layout: post
+title: Bulk deletion of documents in CouchDB
+categories: [couchdb, javascript, json]
+excerpt: <p>For the couchapp I'm writing, I recently wanted to do a bulk delete operation with CouchDB, but found very little about it on the web. I don't know if my approach is the best way to go, but well, it works - if you know a better way, I'm happy to learn about it.</p><p>In CouchDB, there are a couple of convenience methods in <a href="http://github.com/lenalena/couchdb/blob/trunk/share/www/script/jquery.couch.js">jquery.couch.js</a> to help you dealing with the database, documents and views. There is a method for deletion too (removeDoc), but it only can handle one document at a time. In the style of bulkSave, I added a bulkRemove method:</p><p><a href="2009-12-22-bulk-deletion-of-documents-in-couchdb">Continue reading...</a></p>
+
+---
+
+<p>For the couchapp I'm writing, I recently wanted to do a bulk delete operation with CouchDB, but found very little about it on the web. I don't know if my approach is the best way to go, but well, it works - if you know a better way, I'm happy to learn about it.</p>
+
+<p>In the file <a href="http://github.com/lenalena/couchdb/blob/trunk/share/www/script/jquery.couch.js">jquery.couch.js</a> that comes with CouchDB there are a couple of convenience methods to help you dealing with the database, documents and views. There is a method for deletion too (removeDoc), but it only can handle one document at a time. In the style of bulkSave, I added a bulkRemove method:</p>
+
+{% highlight javascript %}
+bulkRemove: function(docs, options){
+  docs.docs = $.each(docs.docs, function(i, doc){doc._deleted = true});
+  $.extend(options, {successStatus: 201});
+  ajax({
+      type: "POST",
+      contentType: "application/json",
+      dataType: "json", 
+      data: toJSON(docs),
+      url: this.uri + "_bulk_docs" + encodeOptions(options)
+    },
+    options,
+    "The documents could not be deleted"
+  );
+},
+{% endhighlight %}
+
+
+<p>In here I add the attribute "_deleted = true" to every document I want to delete, and then I do a bulk update with the documents. That's it.</p>
+
+<p>This is one possible use case: In the delete action of my controller I first fetch an array with the post and its comments from the couch (how to do this see below), and then I call the bulkRemove action on that array.</p>
+
+{% highlight javascript %}
+couchapp.design.view('post_with_comments', {
+  startkey: [params['id']],
+  endkey: [params['id'], {}],
+  success: function(json) {
+    if (json.rows.length > 0) { 
+      var post_and_comments = json.rows.map(function(row) {return row.value}); 
+      couchapp.db.bulkRemove({docs: post_and_comments}, {
+        success: function() {
+          flash = {message: 'Post deleted.', type: 'notice'}
+          redirect('#/outlines', flash);
+        },
+        error: function(response_code, msg) {
+          flash = {message: 'Error deleting post: ' + msg, type: 'error'};
+        }
+      });
+    }      
+  }
+});
+{% endhighlight %}
+
+
+<p>Note that the "flash" object I'm using is my own Sammy.js implementation of a Rails-like flash to show a message after a redirect. Maybe I'll share that in another blog post.</p>
+
+<p>As a bonus, this is the view I'm using to retrieve a post and its comments in one request. I'm following the pattern Christopher Lenz is recommending in his article on <a href="http://www.cmlenz.net/archives/2007/10/couchdb-joins">CouchDB Joins</a>.</p>
+
+{% highlight javascript %}
+function(doc) {
+  if (doc.type == "Post") {
+    emit([doc._id, 0], doc);
+  } else if (doc.type == "Comment") {
+    emit([doc.post_id, 1, Date.parse(doc.created_at)], doc);
+  }
+}
+{% endhighlight %}
+
+
+<p>When you call this view with</p>
+
+{% highlight javascript %}
+startkey: [params['id']],
+endkey: [params['id'], {}]
+{% endhighlight %}
+
+
+<p>you get an array with the post as the first element, and then all the comments that have the post's ID as post_id.</p>
+
+<p>This can of course also be used for things other than deleting: to show all the comments for a post, I get the array's first element and extract the title and content. Then I remove it from the array with</p>
+
+{% highlight javascript %}
+json.rows.splice(0,1);        
+{% endhighlight %}
+
+
+<p>You now have an array with only the post's comments and you can display them somehow.</p>
