@@ -28,10 +28,9 @@ title: Lena Herrmann
   
   <p class="info"> 
 		<script>
-		alert('eins');
       var idcomments_acct = 'dbf52aa91e471a96b0cf2b3b8d1dbfc4';
-      var idcomments_post_id = {{ post.url }};
-      var idcomments_post_url = {{ post.url }};
+      var idcomments_post_id = "{{ post.url }}";
+      var idcomments_post_url = "{{ post.url }}";
       
       if(null==idcomments_post_id)
 	      idcomments_post_id = idcomments_post_url;
@@ -54,7 +53,7 @@ else
 
 var commentScript = document.createElement("script");
 commentScript.type = "text/javascript";
-commentScript.src = "alert('miau');http://www.intensedebate.com/js/getCommentLink.php?acct="+idcomments_acct+"&postid="+id_clean_url(idcomments_post_id)+"&posturl="+id_clean_url(idcomments_post_url)+"&posttitle="+idcomments_post_title;
+commentScript.src = "http://www.intensedebate.com/js/getCommentLink.php?acct="+idcomments_acct+"&postid="+id_clean_url(idcomments_post_id)+"&posturl="+id_clean_url(idcomments_post_url)+"&posttitle="+idcomments_post_title;
 var scripts = document.getElementsByTagName("script");
 
 var found=false;
