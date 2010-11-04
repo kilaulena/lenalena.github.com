@@ -1,0 +1,58 @@
+/* header & title */
+
+#header {
+    background: #9184cb url('/images/header.jpg') no-repeat;
+    height: 160px;
+    margin-bottom: 5px;
+    text-align: center;
+	text-shadow: #384250 1px 1px 2px;
+}
+#header .title {
+    color: #FFF;
+    padding-top: 37px;
+	text-align: left;
+	margin-left:86px;
+}
+
+#header .title .slogan {
+	margin-left:3px;
+}
+
+h1 {
+    font: normal 3em sans-serif;
+}
+
+#header .title h1.sitename a {
+    color: #FFF;
+    padding-bottom: 2px;
+    text-decoration: none;
+}
+#header .title a:hover {border-color: #F60;}
+#header .title .slogan {
+    font: normal 1.1em Verdana,sans-serif;
+    padding-top: 6px;
+}
+
+
+/* path */
+.path {
+	background: #949490;
+  color: #FFF;
+  font: normal 1.1em Verdana,sans-serif;
+  padding: 8px 12px;
+}
+.path li,.path ul {display: inline;}
+.path a {
+    color: #FAFAFA;
+    text-decoration: none;
+    margin-right: 16px;
+}
+.path a:hover {
+    color: #FFE;
+    text-decoration: underline;
+}
+
+/* content */
+#main {
+    
+}
