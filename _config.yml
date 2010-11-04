@@ -1,2 +1,3 @@
 destination: /Library/WebServer/Documents
 permalink: /:year/:month/:day/:title
+paginate: 3
